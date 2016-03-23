@@ -41,7 +41,7 @@ public class CreateMySQLTable {
         String charset = "CHARACTER SET utf8 COLLATE utf8_general_ci";
 
         String sql = String.format("create table if not exists cl_resolved_addresses" +
-                "(original_address varchar(200) %2$s, cl_resolved_address varchar(200) %2$s)",
+                "(original_address varchar(200) %1$s, cl_resolved_address varchar(200) %1$s)",
             charset);
 
         executeStatement(sql);
@@ -57,7 +57,7 @@ public class CreateMySQLTable {
                 DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?" +
                     "user=%s&password=%s",
                     properties.getProperty("databaseServer"),
-                    properties.getProperty("databaseTableName"),
+                    properties.getProperty("databaseSchemaName"),
                     properties.getProperty("databaseUsername"),
                     properties.getProperty("databasePassword")));
 
