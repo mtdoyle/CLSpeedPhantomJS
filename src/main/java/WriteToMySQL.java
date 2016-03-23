@@ -28,7 +28,7 @@ public class WriteToMySQL {
                 DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?" +
                         "user=%s&password=%s",
                     properties.getProperty("databaseServer"),
-                    properties.getProperty("databaseTableName"),
+                    properties.getProperty("databaseSchemaName"),
                     properties.getProperty("databaseUsername"),
                     properties.getProperty("databasePassword")));
 
