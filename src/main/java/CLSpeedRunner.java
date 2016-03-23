@@ -3,6 +3,7 @@ import com.rabbitmq.client.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.concurrent.*;
 
 /**
@@ -10,14 +11,16 @@ import java.util.concurrent.*;
  */
 public class CLSpeedRunner {
     static Integer THREADS = 10;
+    static LoadProperties loadProperties = new LoadProperties();
+    static Properties properties = loadProperties.getProperties();
 
     private static Connection getConnectionFactory() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setUsername("guest");
-        factory.setPassword("guest");
-        factory.setVirtualHost("/");
-        factory.setHost("192.168.1.211");
-        factory.setPort(5672);
+        factory.setUsername(properties.getProperty("rabbitmqUsername"));
+        factory.setPassword(properties.getProperty("rabbitmqPassword"));
+        factory.setVirtualHost(properties.getProperty("rabbitmqVirtualHost"));
+        factory.setHost(properties.getProperty("rabbitmqServer"));
+        factory.setPort(Integer.valueOf(properties.getProperty("rabbitmqPort")));
         return factory.newConnection();
     }
 
@@ -28,7 +31,8 @@ public class CLSpeedRunner {
 
         CreateMySQLTable createMySQLTable = new CreateMySQLTable();
 
-        createMySQLTable.createNewTable(currDate);
+        createMySQLTable.createNewResultsTable(currDate);
+        createMySQLTable.createNewBadAddressesTable(currDate);
 
         int messageCount;
 
@@ -40,7 +44,7 @@ public class CLSpeedRunner {
 
         channel.basicQos(1);
 
-        messageCount = channel.queueDeclare("clspeed", true, false, false, null).getMessageCount();
+        messageCount = channel.queueDeclare(properties.getProperty("rabbitmqChannel"), true, false, false, null).getMessageCount();
 
         channel.close();
 

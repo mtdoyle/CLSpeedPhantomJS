@@ -5,6 +5,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -16,8 +17,10 @@ public class CLSpeed implements Runnable {
     Connection conn;
     Channel channel;
     long deliveryTag;
-    String actualAddress;
+    String actualAddress = "";
     String currDate;
+    LoadProperties loadProperties = new LoadProperties();
+    Properties properties = loadProperties.getProperties();
 
     public CLSpeed(Connection conn, String currDate) throws IOException {
         this.conn = conn;
@@ -63,13 +66,13 @@ public class CLSpeed implements Runnable {
         }
     }
 
-    private static Connection getConnectionFactory() throws IOException, TimeoutException {
+    private Connection getConnectionFactory() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setUsername("guest");
-        factory.setPassword("guest");
-        factory.setVirtualHost("/");
-        factory.setHost("192.168.1.211");
-        factory.setPort(5672);
+        factory.setUsername(properties.getProperty("rabbitmqUsername"));
+        factory.setPassword(properties.getProperty("rabbitmqPassword"));
+        factory.setVirtualHost(properties.getProperty("rabbitmqVirtualHost"));
+        factory.setHost(properties.getProperty("rabbitmqServer"));
+        factory.setPort(Integer.valueOf(properties.getProperty("rabbitmqPort")));
         return factory.newConnection();
     }
 
@@ -80,6 +83,8 @@ public class CLSpeed implements Runnable {
         caps.setJavascriptEnabled(true);
         caps.setCapability("takesScreenshot", true);
         WebDriver webdriver = new PhantomJSDriver(caps);
+
+
         webdriver.get("http://www.centurylink.com/home/internet");
         webdriver.findElement(By.id("home-internet-speed-check")).click();
         webdriver.findElement(By.id("ctam_new-customer-link")).click();
@@ -144,9 +149,10 @@ public class CLSpeed implements Runnable {
         String garbage = addressSplit[5];
         String state = "MN";
 
-        String sql = String.format("insert into clspeed_%s " +
+        String sql = String.format("insert into %s_%s " +
                         "(street, city, state, zip, speed, emm_lat, emm_lng, emm_acc)" +
                         "values ('%s', '%s', '%s', '%s', %s, %s, %s, '%s')",
+                properties.getProperty("databaseTableName"),
                 currDate, street, city, state, zip, speed, lat, lon, garbage);
         WriteToMySQL writeToMySQL = new WriteToMySQL();
         writeToMySQL.executeStatement(sql);
@@ -154,10 +160,14 @@ public class CLSpeed implements Runnable {
 
     private void displayBadAddress(){
         System.out.println("Bad address: " + address);
-        String sql = String.format("insert into badaddresses " +
-                        "(badaddress)" +
-                        "values ('%s')",
-                address);
+        String sql = String.format("insert into %1$s_%2$s_%3$s " +
+            "(original_address, cl_resolved_address)" +
+            "values ('%4$s', '%5$s')",
+            properties.getProperty("databaseBadAddressTableName"),
+            properties.getProperty("databaseTableName"),
+            currDate,
+            address,
+            actualAddress);
         WriteToMySQL writeToMySQL = new WriteToMySQL();
         writeToMySQL.executeStatement(sql);
     }
