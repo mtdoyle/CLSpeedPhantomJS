@@ -1,29 +1,55 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * Created by mike on 3/16/16.
  */
 public class CreateMySQLTable {
+    LoadProperties loadProperties = new LoadProperties();
+    Properties properties = loadProperties.getProperties();
 
-    public void createNewTable(String currDate){
+
+    public void createNewResultsTable(String currDate){
         String charset = "CHARACTER SET utf8 COLLATE utf8_general_ci";
 
-        String sql = String.format("create table if not exists clspeed_%1$s" +
-                "(street varchar(100) %2$s, city varchar(100) %2$s, state varchar(2) %2$s, zip int(5), "
-                + "speed decimal(5,1), emm_lat decimal(12,10), emm_lng decimal(12,10), emm_acc varchar(20) %2$s)",
-                currDate, charset);
+        String sql = String.format("create table if not exists %3$s_%1$s" +
+            "(street varchar(100) %2$s, city varchar(100) %2$s, state varchar(2) %2$s, zip int(5), "
+            + "speed decimal(5,1), emm_lat decimal(12,10), emm_lng decimal(12,10), emm_acc varchar(20) %2$s)",
+            currDate,
+            charset,
+            properties.getProperty("databaseTableName"));
+
+        executeStatement(sql);
+    }
+
+    public void createNewBadAddressesTable(String currDate){
+        String charset = "CHARACTER SET utf8 COLLATE utf8_general_ci";
+
+        String sql = String.format("create table if not exists %3$s_%4$s_%1$s" +
+                "(original_address varchar(200) %2$s, cl_resolved_address varchar(200) %2$s)",
+            currDate,
+            charset,
+            properties.getProperty("databaseBadAddressTableName"),
+            properties.getProperty("databaseTableName"));
 
         executeStatement(sql);
     }
 
     protected void executeStatement(String sql){
+        LoadProperties loadProperties = new LoadProperties();
+        Properties properties = loadProperties.getProperties();
         Connection conn = null;
+
         try {
             conn =
-                DriverManager.getConnection("jdbc:mysql://192.168.1.211/clspeed?" +
-                    "user=clspeed&password=clspeed");
+                DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?" +
+                    "user=%s&password=%s",
+                    properties.getProperty("databaseServer"),
+                    properties.getProperty("databaseTableName"),
+                    properties.getProperty("databaseUsername"),
+                    properties.getProperty("databasePassword")));
 
             conn.createStatement().execute(sql);
         } catch (SQLException ex) {
