@@ -33,6 +33,7 @@ public class CLSpeedRunner {
 
         createMySQLTable.createNewResultsTable(currDate);
         createMySQLTable.createNewBadAddressesTable(currDate);
+        createMySQLTable.createCenturyLinkResolvedAddressTable();
 
         int messageCount;
 

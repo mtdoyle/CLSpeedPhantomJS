@@ -130,7 +130,8 @@ public class CLSpeed implements Runnable {
             this.maxSpeed = webdriver.findElement(By.id("maxSpeed")).getAttribute("value").split(":")[0].replaceAll("M", "");
             System.out.println(maxSpeed + ": " + submitAddress);
             webdriver.quit();
-            writeToDB(maxSpeed, currDate);
+            writeSpeedToDB(maxSpeed, currDate);
+            recordCLAddress();
         }
         else {
             webdriver.quit();
@@ -138,7 +139,7 @@ public class CLSpeed implements Runnable {
         }
 
     }
-    private void writeToDB(String speed, String currDate){
+    private void writeSpeedToDB(String speed, String currDate){
         String[] addressSplit = address.split(",");
         String[] actualAddressSplit = actualAddress.split(",");
         String street = actualAddressSplit[0];
@@ -154,6 +155,16 @@ public class CLSpeed implements Runnable {
                         "values ('%s', '%s', '%s', '%s', %s, %s, %s, '%s')",
                 properties.getProperty("databaseTableName"),
                 currDate, street, city, state, zip, speed, lat, lon, garbage);
+        WriteToMySQL writeToMySQL = new WriteToMySQL();
+        writeToMySQL.executeStatement(sql);
+    }
+
+    private void recordCLAddress(){
+        String sql = String.format("insert into cl_resolved_addresses " +
+                "(original_address, cl_resolved_address)" +
+                "values ('%1$s', '%2$s')",
+            address,
+            actualAddress);
         WriteToMySQL writeToMySQL = new WriteToMySQL();
         writeToMySQL.executeStatement(sql);
     }
