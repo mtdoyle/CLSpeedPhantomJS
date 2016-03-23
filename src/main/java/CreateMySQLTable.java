@@ -37,6 +37,16 @@ public class CreateMySQLTable {
         executeStatement(sql);
     }
 
+    public void createCenturyLinkResolvedAddressTable(){
+        String charset = "CHARACTER SET utf8 COLLATE utf8_general_ci";
+
+        String sql = String.format("create table if not exists cl_resolved_addresses" +
+                "(original_address varchar(200) %2$s, cl_resolved_address varchar(200) %2$s)",
+            charset);
+
+        executeStatement(sql);
+    }
+
     protected void executeStatement(String sql){
         LoadProperties loadProperties = new LoadProperties();
         Properties properties = loadProperties.getProperties();
