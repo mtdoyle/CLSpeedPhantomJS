@@ -2,11 +2,14 @@ import com.rabbitmq.client.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -115,6 +118,7 @@ public class CLSpeed implements Runnable {
         caps.setJavascriptEnabled(true);
         caps.setCapability("takesScreenshot", true);
         WebDriver webdriver = new PhantomJSDriver(caps);
+        Logger.getLogger(PhantomJSDriverService.class.getName()).setLevel(Level.OFF);
 
 
         webdriver.get("http://www.centurylink.com/home/internet");
