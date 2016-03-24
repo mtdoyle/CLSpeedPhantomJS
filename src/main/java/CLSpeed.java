@@ -177,16 +177,13 @@ public class CLSpeed implements Runnable {
         String street = actualAddressSplit[0];
         String city = actualAddressSplit[1];
         String zip = actualAddressSplit[2].split(" ")[1];
-        String lat = addressSplit[3];
-        String lon = addressSplit[4];
-        String garbage = addressSplit[5];
         String state = "MN";
 
         String sql = String.format("insert into %s_%s " +
                         "(street, city, state, zip, speed, emm_lat, emm_lng, emm_acc)" +
                         "values ('%s', '%s', '%s', '%s', %s, %s, %s, '%s')",
                 properties.getProperty("databaseTableName"),
-                currDate, street, city, state, zip, speed, lat, lon, garbage);
+                currDate, street, city, state, zip, speed, lat, lon, emmAcc);
         WriteToMySQL writeToMySQL = new WriteToMySQL();
         writeToMySQL.executeStatement(sql);
     }
