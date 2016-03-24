@@ -117,6 +117,7 @@ public class CLSpeed implements Runnable {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setJavascriptEnabled(true);
         caps.setCapability("takesScreenshot", true);
+        caps.setCapability("loadImages", false);
         WebDriver webdriver = new PhantomJSDriver(caps);
         Logger.getLogger(PhantomJSDriverService.class.getName()).setLevel(Level.OFF);
 
