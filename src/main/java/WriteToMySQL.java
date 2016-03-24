@@ -38,6 +38,7 @@ public class WriteToMySQL {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
+            System.out.println("Bad sql: " + sql);
         }
     }
 
