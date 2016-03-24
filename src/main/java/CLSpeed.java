@@ -21,6 +21,12 @@ public class CLSpeed implements Runnable {
     String currDate;
     LoadProperties loadProperties = new LoadProperties();
     Properties properties = loadProperties.getProperties();
+    String street;
+    String city;
+    String zip;
+    String lat;
+    String lon;
+    String emmAcc;
 
     public CLSpeed(Connection conn, String currDate) throws IOException {
         this.conn = conn;
@@ -78,7 +84,33 @@ public class CLSpeed implements Runnable {
 
     public void checkAddress () {
         String[] choppedAddress = address.split(",");
-        String submitAddress = choppedAddress[0] + ", " + choppedAddress[1] + ", MN " + choppedAddress[2];
+        String submitAddress;
+        if (choppedAddress.length == 6) {
+            street = choppedAddress[0];
+            city = choppedAddress[1];
+            zip = choppedAddress[2];
+            lat = choppedAddress[3];
+            lon = choppedAddress[4];
+            emmAcc = choppedAddress[5];
+
+            submitAddress = String.format("%s, %s, MN %s",
+                    street,
+                    city,
+                    zip);
+        } else {
+            street = choppedAddress[0];
+            city = choppedAddress[1];
+            zip = choppedAddress[2].split(" ")[1];
+            lat = choppedAddress[4];
+            lon = choppedAddress[5];
+            emmAcc = choppedAddress[6];
+
+            submitAddress = String.format("%s, %s, %s, %s",
+                    street,
+                    city,
+                    zip,
+                    choppedAddress[3]);
+        }
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setJavascriptEnabled(true);
         caps.setCapability("takesScreenshot", true);
