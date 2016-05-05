@@ -10,7 +10,7 @@ import java.util.concurrent.*;
  *
  */
 public class CLSpeedRunner {
-    static Integer THREADS = 10;
+    static Integer THREADS = 1;
     static LoadProperties loadProperties = new LoadProperties();
     static Properties properties = loadProperties.getProperties();
 

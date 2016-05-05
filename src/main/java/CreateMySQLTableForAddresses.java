@@ -23,6 +23,10 @@ public class CreateMySQLTableForAddresses {
         executeStatement(sql);
     }
 
+    public void populateAddressTable(){
+
+    }
+
     protected void executeStatement(String sql){
         LoadProperties loadProperties = new LoadProperties();
         Properties properties = loadProperties.getProperties();
