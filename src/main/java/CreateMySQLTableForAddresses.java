@@ -14,9 +14,9 @@ public class CreateMySQLTableForAddresses {
     public void createAddressTable(){
         String charset = "CHARACTER SET utf8 COLLATE utf8_general_ci";
 
-        String sql = String.format("create table if not exists %3$s_%1$s" +
-            "(street varchar(100) %2$s, city varchar(100) %2$s, state varchar(2) %2$s, zip int(5), "
-            + "emm_lat decimal(12,10), emm_lng decimal(12,10), emm_acc varchar(20) %2$s)",
+        String sql = String.format("create table if not exists %2$s" +
+            "(street varchar(100) %1$s, city varchar(100) %1$s, state varchar(2) %1$s, zip int(5), "
+            + "emm_lat decimal(12,10), emm_lng decimal(12,10), emm_acc varchar(20) %1$s)",
             charset,
             properties.getProperty("databaseTableName"));
 
