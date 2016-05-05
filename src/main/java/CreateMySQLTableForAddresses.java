@@ -18,13 +18,9 @@ public class CreateMySQLTableForAddresses {
             "(street varchar(100) %1$s, city varchar(100) %1$s, state varchar(2) %1$s, zip int(5), "
             + "emm_lat decimal(12,10), emm_lng decimal(12,10), emm_acc varchar(20) %1$s)",
             charset,
-            properties.getProperty("databaseTableName"));
+            "addresses");
 
         executeStatement(sql);
-    }
-
-    public void populateAddressTable(){
-
     }
 
     protected void executeStatement(String sql){
