@@ -21,7 +21,7 @@ public class WriteToMySQL {
     }
 
     protected void executeStatement(String sql){
-        LoadProperties loadProperties = new LoadProperties();
+        LoadProperties loadProperties = LoadProperties.getInstance();
         Properties properties = loadProperties.getProperties();
         try {
             conn =

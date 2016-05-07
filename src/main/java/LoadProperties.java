@@ -9,13 +9,32 @@ import java.util.Properties;
  */
 public class LoadProperties {
 
-    public Properties getProperties(){
-        Properties prop = new Properties();
+    private static LoadProperties instance = null;
+    private static Properties prop = new Properties();
+
+    public static LoadProperties getInstance() {
+        if (instance == null) {
+            instance = new LoadProperties();
+        }
+
+        return instance;
+    }
+
+    private LoadProperties() {
         InputStream input = null;
 
         try {
 
-            input = new FileInputStream("src/main/config/local.properties");
+            if (new File("src/main/config/local.properties").exists()) {
+                input = new FileInputStream("src/main/config/local.properties");
+                System.out.println("Found #1");
+            } else if (new File("local.properties").exists()) {
+                input = new FileInputStream("local.properties");
+                System.out.println("Found #2");
+            } else {
+                throw new FileNotFoundException();
+            }
+
 
             prop.load(input);
 
@@ -31,6 +50,9 @@ public class LoadProperties {
             }
         }
 
+    }
+
+    public Properties getProperties(){
         return prop;
     }
 

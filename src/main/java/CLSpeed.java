@@ -22,7 +22,7 @@ public class CLSpeed implements Runnable {
     long deliveryTag;
     String actualAddress = "";
     String currDate;
-    LoadProperties loadProperties = new LoadProperties();
+    LoadProperties loadProperties = LoadProperties.getInstance();
     Properties properties = loadProperties.getProperties();
     String street;
     String city;
