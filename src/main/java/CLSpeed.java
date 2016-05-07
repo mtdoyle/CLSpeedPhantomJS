@@ -1,6 +1,7 @@
 import com.rabbitmq.client.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -114,12 +115,13 @@ public class CLSpeed implements Runnable {
                     zip,
                     choppedAddress[3]);
         }
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setJavascriptEnabled(true);
-        caps.setCapability("takesScreenshot", true);
-        caps.setCapability("loadImages", false);
-        WebDriver webdriver = new PhantomJSDriver(caps);
-        Logger.getLogger(PhantomJSDriverService.class.getName()).setLevel(Level.OFF);
+//        DesiredCapabilities caps = new DesiredCapabilities();
+//        caps.setJavascriptEnabled(true);
+//        caps.setCapability("takesScreenshot", true);
+//        caps.setCapability("loadImages", false);
+//        WebDriver webdriver = new PhantomJSDriver(caps);
+//        Logger.getLogger(PhantomJSDriverService.class.getName()).setLevel(Level.OFF);
+        WebDriver webdriver = new FirefoxDriver();
 
 
         webdriver.get("http://www.centurylink.com/home/internet");
