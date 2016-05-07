@@ -10,8 +10,7 @@ import java.util.concurrent.*;
  *
  */
 public class CLSpeedRunner {
-    static Integer THREADS = 10;
-    static LoadProperties loadProperties = new LoadProperties();
+    static LoadProperties loadProperties = LoadProperties.getInstance();
     static Properties properties = loadProperties.getProperties();
 
     private static Connection getConnectionFactory() throws IOException, TimeoutException {
@@ -36,8 +35,15 @@ public class CLSpeedRunner {
         createMySQLTable.createCenturyLinkResolvedAddressTable();
 
         int messageCount;
+        int threads;
 
-        ExecutorService executor = Executors.newFixedThreadPool(THREADS);
+        if (properties.getProperty("threads") != null) {
+            threads = Integer.getInteger(properties.getProperty("threads"));
+        } else {
+            threads = 5;
+        }
+
+        ExecutorService executor = Executors.newFixedThreadPool(threads);
 
         Connection conn = getConnectionFactory();
 

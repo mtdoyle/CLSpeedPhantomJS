@@ -7,7 +7,7 @@ import java.util.Properties;
  * Created by mike on 3/16/16.
  */
 public class CreateMySQLTable {
-    LoadProperties loadProperties = new LoadProperties();
+    LoadProperties loadProperties = LoadProperties.getInstance();
     Properties properties = loadProperties.getProperties();
 
 
@@ -48,7 +48,7 @@ public class CreateMySQLTable {
     }
 
     protected void executeStatement(String sql){
-        LoadProperties loadProperties = new LoadProperties();
+        LoadProperties loadProperties = LoadProperties.getInstance();
         Properties properties = loadProperties.getProperties();
         Connection conn = null;
 
