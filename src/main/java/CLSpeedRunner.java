@@ -38,7 +38,7 @@ public class CLSpeedRunner {
         int threads;
 
         if (properties.getProperty("threads") != null) {
-            threads = Integer.getInteger(properties.getProperty("threads"));
+            threads = Integer.parseInt(properties.getProperty("threads"));
         } else {
             threads = 5;
         }

@@ -7,5 +7,4 @@ git.properties
 logs/
 classes/
 phantomjsdriver.log
-
-
+*.DS_Store

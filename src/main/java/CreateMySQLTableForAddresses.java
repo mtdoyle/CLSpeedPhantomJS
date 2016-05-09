@@ -7,9 +7,8 @@ import java.util.Properties;
  * Created by mike on 3/16/16.
  */
 public class CreateMySQLTableForAddresses {
-    LoadProperties loadProperties = new LoadProperties();
+    LoadProperties loadProperties = LoadProperties.getInstance();
     Properties properties = loadProperties.getProperties();
-
 
     public void createAddressTable(){
         String charset = "CHARACTER SET utf8 COLLATE utf8_general_ci";
@@ -24,7 +23,7 @@ public class CreateMySQLTableForAddresses {
     }
 
     protected void executeStatement(String sql){
-        LoadProperties loadProperties = new LoadProperties();
+        LoadProperties loadProperties = LoadProperties.getInstance();
         Properties properties = loadProperties.getProperties();
         Connection conn = null;
 
