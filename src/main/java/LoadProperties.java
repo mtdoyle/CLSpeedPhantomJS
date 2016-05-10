@@ -26,11 +26,11 @@ public class LoadProperties {
         try {
 
             if (new File("src/main/config/local.properties").exists()) {
-                input = new FileInputStream("src/main/config/local.properties");
-                System.out.println("Found #1");
+                input = new FileInputStream("resources/properties/local.properties");
+                System.out.println("Using internal properties file");
             } else if (new File("local.properties").exists()) {
                 input = new FileInputStream("local.properties");
-                System.out.println("Found #2");
+                System.out.println("Using external properties file");
             } else {
                 throw new FileNotFoundException();
             }
