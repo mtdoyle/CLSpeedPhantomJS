@@ -25,10 +25,14 @@
   - name: get load_rabbitmq.py
     get_url:
       url=https://github.com/mtdoyle/CLSpeedPhantomJS/raw/master/Resources/LoadRabbitMQ/load_rabbitmq.py     
-      dest={{ ansible_env.HOME }}/clspeed
+      dest={{ ansible_env.HOME }}/clspeed/
   
   - name: install pika dependency for load_rabbitmq.py
     pip: name=pika
     become: yes
     become_method: sudo
 
+  - name: get load_rabbitmq.py
+    get_url:
+      url=https://github.com/mtdoyle/CLSpeedPhantomJS/raw/master/Resources/LoadRabbitMQ/mega_addresses_final
+      dest={{ ansible_env.HOME }}/clspeed/mega_addresses_final
