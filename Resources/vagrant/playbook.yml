@@ -75,4 +75,3 @@
 - include: rabbitmq.yml
 - include: phantomjs.yml
 - include: clspeed.yml
-- include: phantomjs.yml
