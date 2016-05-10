@@ -1,0 +1,30 @@
+- hosts: all
+  sudo: true
+
+  tasks:
+  - name: ensure python-software-properties is installed
+    apt: pkg=python-software-properties state=installed
+
+  - name: add rabbitmq official apt repository
+    apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
+
+  - name: install rabbitmq
+    apt: name=rabbitmq-server state=installed force=yes
+
+  - name: enable rabbitmq plugins
+    rabbitmq_plugin: names=rabbitmq_management,rabbitmq_tracing,rabbitmq_federation state=enabled
+    notify:
+    - restart rabbitmq
+
+  - name: add users
+    rabbitmq_user: user=clspeed password=clspeed tags=administrator,clspeed vhost=/ configure_priv=.* write_priv=.* read_priv=.* state=present force=yes
+
+  - name: create default guest user
+    rabbitmq_user: user=guest state=absent
+
+  - name: copy rabbitmq config
+    template: src=rabbitmq.config dest=/etc/rabbitmq/rabbitmq.config owner=root mode=0644
+
+  handlers:
+  - name: restart rabbitmq
+    service: name=rabbitmq-server state=restarted
