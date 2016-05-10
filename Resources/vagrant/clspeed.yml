@@ -1,0 +1,23 @@
+- hosts: all
+  user: ubuntu
+  sudo: false
+  tasks:
+
+  - name: create clspeed
+    file: path={{ ansible_env.HOME }}/clspeed state=directory mode=0755
+
+  - name: download clspeed jar
+    get_url:
+      url=https://github.com/mtdoyle/CLSpeedPhantomJS/raw/master/classes/artifacts/CLSpeedPhantomJS_jar/CLSpeedPhantomJS.jar
+      dest={{ ansible_env.HOME }}/clspeed
+
+  - name: download clspeed property file
+    get_url:
+      url=https://github.com/mtdoyle/CLSpeedPhantomJS/raw/master/classes/artifacts/CLSpeedPhantomJS_jar/local.properties
+      dest={{ ansible_env.HOME }}/clspeed
+
+  - name: replace ip in property file
+    replace: dest={{ ansible_env.HOME }}/clspeed/local.properties regexp='^databaseServer=.*' replace='databaseServer={{ ansible_eth1[\'ipv4\'][\'address\'] }}'
+
+  - name: replace ip in property file
+    replace: dest={{ ansible_env.HOME }}/clspeed/local.properties regexp='^rabbitmqServer=.*' replace='rabbitmqServer={{ ansible_eth1[\'ipv4\'][\'address\'] }}'
