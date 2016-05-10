@@ -9,7 +9,7 @@
   - name: download clspeed jar
     get_url:
       url=https://github.com/mtdoyle/CLSpeedPhantomJS/raw/master/classes/artifacts/CLSpeedPhantomJS_jar/CLSpeedPhantomJS.jar
-      dest={{ ansible_env.HOME }}/clspeed
+      dest={{ ansible_env.HOME }}/clspeed/CLSpeedPhantomJS.jar
 
   - name: download clspeed property file
     get_url:
@@ -17,7 +17,18 @@
       dest={{ ansible_env.HOME }}/clspeed
 
   - name: replace ip in property file
-    replace: dest={{ ansible_env.HOME }}/clspeed/local.properties regexp='^databaseServer=.*' replace='databaseServer={{ ansible_eth1[\'ipv4\'][\'address\'] }}'
+    replace: dest={{ ansible_env.HOME }}/clspeed/local.properties regexp='^databaseServer=.*' replace='databaseServer={{ ansible_eth0[\'ipv4\'][\'address\'] }}'
 
   - name: replace ip in property file
-    replace: dest={{ ansible_env.HOME }}/clspeed/local.properties regexp='^rabbitmqServer=.*' replace='rabbitmqServer={{ ansible_eth1[\'ipv4\'][\'address\'] }}'
+    replace: dest={{ ansible_env.HOME }}/clspeed/local.properties regexp='^rabbitmqServer=.*' replace='rabbitmqServer={{ ansible_eth0[\'ipv4\'][\'address\'] }}'
+
+  - name: get load_rabbitmq.py
+    get_url:
+      url=https://github.com/mtdoyle/CLSpeedPhantomJS/raw/master/Resources/LoadRabbitMQ/load_rabbitmq.py     
+      dest={{ ansible_env.HOME }}/clspeed
+  
+  - name: install pika dependency for load_rabbitmq.py
+    pip: name=pika
+    become: yes
+    become_method: sudo
+
