@@ -1,6 +1,6 @@
 # CLSpeedPhantomJS
 
-Instructions on how to set an environment to run this program:
+Instructions on how to set an environment up to run this program:
 
 * Clone this repository
 * Download/install Vagrant, Ansible and VirtualBox
