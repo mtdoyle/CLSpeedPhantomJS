@@ -1,4 +1,4 @@
-# CLSpeedPhantomJS
+# CenturyLink Speed Finder using PhantomJS headless browser
 
 Instructions on how to set an environment up to run this program:
 
