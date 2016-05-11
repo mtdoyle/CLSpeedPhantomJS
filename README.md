@@ -85,5 +85,5 @@ To generate a map:
 * You'll be brought back to the previous page, and it will show you the URL for your new map.
   * I highly suggest you click on the "Edit" button next to the URL and give it a URL which is easier to remember 
   
-  That's it - you can share the URL to your map
+That's it - you can share the URL to your map
 
