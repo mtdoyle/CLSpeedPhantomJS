@@ -43,7 +43,7 @@ You should see a whole bunch of output from phantomjs. It'll churn for a while a
 20: 8 wellesley pl, minneapolis, MN 55436
 ```
 
-with the "success messages" being in the form of <\<SPEED\>>: <\<ADDRESS\>>.
+with the "success messages" being in the form of {SPEED}: {ADDRESS}
 
 To see the results: 
 * log into phpmyadmin by navigating to http://localhost:8180/phpmyadmin on your machine running the VM (not the actual VM itself)
