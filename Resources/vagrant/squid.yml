@@ -1,0 +1,24 @@
+- hosts: all
+  user: ubuntu
+  sudo: false
+  tasks:
+  
+  - name: install squid proxy
+    apt: name=squid3 state=present
+    become: yes
+    become_method: sudo
+
+  - name: create squid cache directory
+    file: path=/var/spool/squid3 state=directory mode=0777
+    become: yes
+    become_method: sudo
+
+  - name: copy squid config
+    template: src=squid.conf dest=/etc/squid3/squid.conf owner=root mode=0644
+    become: yes
+    become_method: sudo
+
+  - name: restart squid
+    service: name=squid3 state=restarted
+    become: yes
+    become_method: sudo
