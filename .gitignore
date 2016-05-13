@@ -6,3 +6,4 @@ git.properties
 logs/
 phantomjsdriver.log
 *.DS_Store
+*.vagrant

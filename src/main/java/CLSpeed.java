@@ -118,6 +118,10 @@ public class CLSpeed implements Runnable {
         caps.setJavascriptEnabled(true);
         caps.setCapability("takesScreenshot", true);
         caps.setCapability("loadImages", false);
+        if (properties.getProperty("proxy").equalsIgnoreCase("true")) {
+            caps.setCapability("proxy", "127.0.0.1:3128");
+            caps.setCapability("proxy-type", "http");
+        }
         WebDriver webdriver = new PhantomJSDriver(caps);
         Logger.getLogger(PhantomJSDriverService.class.getName()).setLevel(Level.OFF);
 
