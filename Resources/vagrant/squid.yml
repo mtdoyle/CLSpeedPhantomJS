@@ -9,7 +9,7 @@
     become_method: sudo
 
   - name: create squid cache directory
-    file: path=/var/spool/squid3 state=directory mode=0777
+    file: path=/usr/local/squid/cache state=directory mode=0777
     become: yes
     become_method: sudo
 
