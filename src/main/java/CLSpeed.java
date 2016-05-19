@@ -6,6 +6,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
@@ -117,10 +118,12 @@ public class CLSpeed implements Runnable {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setJavascriptEnabled(true);
         caps.setCapability("takesScreenshot", true);
-        caps.setCapability("loadImages", false);
+        caps.setCapability(PhantomJSDriverService.PHANTOMJS_PAGE_SETTINGS_PREFIX+"loadImages", false);
         if (properties.getProperty("proxy").equalsIgnoreCase("true")) {
-            caps.setCapability("proxy", "localhost:3128");
-            caps.setCapability("proxy-type", "http");
+            ArrayList<String> cliArgsCap = new ArrayList<String>();
+            cliArgsCap.add("--proxy=localhost:33128");
+            cliArgsCap.add("--proxy-type=http");
+            caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArgsCap);
         }
         WebDriver webdriver = new PhantomJSDriver(caps);
         Logger.getLogger(PhantomJSDriverService.class.getName()).setLevel(Level.OFF);

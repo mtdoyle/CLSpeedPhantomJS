@@ -25,7 +25,7 @@ public class LoadProperties {
 
         try {
 
-            if (new File("src/main/config/local.properties").exists()) {
+            if (new File("resources/properties/local.properties").exists()) {
                 input = new FileInputStream("resources/properties/local.properties");
                 System.out.println("Using internal properties file");
             } else if (new File("local.properties").exists()) {
