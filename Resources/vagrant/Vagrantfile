@@ -7,7 +7,13 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 80, host: 8180
   config.vm.network "forwarded_port", guest: 5672, host: 5672
   config.vm.network "forwarded_port", guest: 15672, host: 15672
+<<<<<<< HEAD
   config.vm.network "forwarded_port", guest: 3128, host: 33128
+=======
+
+
+#  config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)"
+>>>>>>> 6ff3a5b9fae673213ceb39983ddebc573384c823
 
   config.vm.provision :ansible do |ansible|
      ansible.playbook = "playbook.yml"
