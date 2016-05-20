@@ -6,6 +6,11 @@ public class LoadProperties {
     private static LoadProperties instance = null;
     private static Properties prop = new Properties();
 
+    /**
+     * Singleton design pattern. My original implementation was loading the properties file
+     * every time the class was called. Didn't notice a performance hit, but seemed like
+     * a bad practice.
+     */
     public static LoadProperties getInstance() {
         if (instance == null) {
             instance = new LoadProperties();

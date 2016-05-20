@@ -189,7 +189,7 @@ public class CLSpeed implements Runnable {
         String street = actualAddressSplit[0];
         String city = actualAddressSplit[1];
         String zip = actualAddressSplit[2].split(" ")[1];
-        String state = "MN";
+        String state = properties.getProperty("state");
 
         String sql = String.format("insert into %s_%s " +
                         "(street, city, state, zip, speed, emm_lat, emm_lng, emm_acc)" +

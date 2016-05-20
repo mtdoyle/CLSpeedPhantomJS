@@ -7,3 +7,4 @@ logs/
 phantomjsdriver.log
 *.DS_Store
 *.vagrant
+*.class

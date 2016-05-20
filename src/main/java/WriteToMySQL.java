@@ -7,6 +7,8 @@ import java.util.Properties;
  * Created by mike on 3/16/16.
  */
 public class WriteToMySQL {
+    LoadProperties loadProperties = LoadProperties.getInstance();
+    Properties properties = loadProperties.getProperties();
     Connection conn = null;
     String street;
     String city;
@@ -14,15 +16,13 @@ public class WriteToMySQL {
     String lat;
     String lon;
     String garbage;
-    String state = "MN";
+    String state = properties.getProperty("state");
 
     public WriteToMySQL(){
 
     }
 
     protected void executeStatement(String sql){
-        LoadProperties loadProperties = LoadProperties.getInstance();
-        Properties properties = loadProperties.getProperties();
         try {
             conn =
                 DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?" +
