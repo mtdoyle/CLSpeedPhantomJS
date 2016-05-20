@@ -8,7 +8,7 @@
 
   - name: download clspeed jar
     get_url:
-      url=https://raw.githubusercontent.com/mtdoyle/CLSpeedPhantomJS/master/classes/artifacts/jar/CLSpeedPhantomJS-1.0-SNAPSHOT.jar
+      url=https://raw.githubusercontent.com/mtdoyle/CLSpeedPhantomJS/master/classes/artifacts/jar/CLSpeedPhantomJS-1.0-SNAPSHOT-jar-with-dependencies.jar
       dest={{ ansible_env.HOME }}/clspeed/CLSpeedPhantomJS.jar
       force=yes
 
