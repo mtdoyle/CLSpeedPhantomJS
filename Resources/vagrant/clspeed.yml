@@ -8,13 +8,13 @@
 
   - name: download clspeed jar
     get_url:
-      url=https://github.com/mtdoyle/CLSpeedPhantomJS/raw/master/classes/artifacts/CLSpeedPhantomJS_jar/CLSpeedPhantomJS.jar
+      url=https://raw.githubusercontent.com/mtdoyle/CLSpeedPhantomJS/master/classes/artifacts/jar/CLSpeedPhantomJS-1.0-SNAPSHOT.jar
       dest={{ ansible_env.HOME }}/clspeed/CLSpeedPhantomJS.jar
       force=yes
 
   - name: download clspeed property file
     get_url:
-      url=https://github.com/mtdoyle/CLSpeedPhantomJS/raw/master/classes/artifacts/CLSpeedPhantomJS_jar/local.properties
+      url=https://raw.githubusercontent.com/mtdoyle/CLSpeedPhantomJS/master/classes/artifacts/jar/local.properties
       dest={{ ansible_env.HOME }}/clspeed
 
   - name: replace ip in property file
