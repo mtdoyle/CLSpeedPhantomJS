@@ -8,3 +8,4 @@ phantomjsdriver.log
 *.DS_Store
 *.vagrant
 *.class
+classes/
