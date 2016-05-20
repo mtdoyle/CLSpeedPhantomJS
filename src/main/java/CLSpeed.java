@@ -124,6 +124,7 @@ public class CLSpeed implements Runnable {
                     properties.getProperty("proxyHost"),
                     properties.getProperty("proxyPort")));
             cliArgsCap.add("--proxy-type=http");
+            cliArgsCap.add("--webdriver-loglevel=NONE");
             caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArgsCap);
         }
         WebDriver webdriver = new PhantomJSDriver(caps);
