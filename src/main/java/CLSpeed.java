@@ -1,6 +1,6 @@
 import com.rabbitmq.client.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -127,12 +127,12 @@ public class CLSpeed implements Runnable {
             cliArgsCap.add("--webdriver-loglevel=NONE");
             caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArgsCap);
         }
-        WebDriver webdriver = new PhantomJSDriver(caps);
+        PhantomJSDriver webdriver = new PhantomJSDriver(caps);
         Logger.getLogger(PhantomJSDriverService.class.getName()).setLevel(Level.OFF);
+        webdriver.manage().window().setSize(new Dimension(1400,1000));
 
         webdriver.get("http://www.centurylink.com/home/internet");
         webdriver.findElement(By.id("home-internet-speed-check")).click();
-        webdriver.findElement(By.id("ctam_new-customer-link")).click();
         webdriver.findElement(By.id("ctam_nc-sfaddress")).sendKeys(submitAddress);
         long startTime = System.currentTimeMillis();
         long elapsedTime = 0;
