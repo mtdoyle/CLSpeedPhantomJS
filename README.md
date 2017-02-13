@@ -1,3 +1,5 @@
+#The below info might be outdated - I have not attempted the instructions before for a long time
+
 # CenturyLink Speed Finder using PhantomJS headless browser
 
 Instructions on how to set an environment up to run this program:
