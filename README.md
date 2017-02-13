@@ -1,4 +1,4 @@
-#The below info might be outdated - I have not attempted the instructions before for a long time
+The below info might be outdated - I have not ran the script via vagrant/ansible/VirtualBox for quite some time
 
 # CenturyLink Speed Finder using PhantomJS headless browser
 
